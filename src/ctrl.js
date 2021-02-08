@@ -20,9 +20,9 @@ const frameController = async () => {
 // EVENT LISTENERS
 ///////////////////////////////////////////////
 window.addEventListener('load', async () => {
-        frameController();
+       await frameController();
 });
 
-window.addEventListener('hashchange', () => {
-    frameController();
+window.addEventListener('hashchange', async () => {
+    await frameController();
 });
