@@ -13,9 +13,16 @@ export const create = (id) => {
 
     const pitch = Pitch.create();
 
-    d3.csv('', (data) => {
-        const event = data
+    d3.csv('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/goal.csv', (data) => {
+        const event = data;
         console.log(event);
+        pitch
+            .data(event)
+            .enter()
+            .append('circle')
+            .attr('x', (d) => {return x(+d.y*100)})
+            .attr('y', (d) => {return y(+d.x*100)})
+            .attr('fill', 'black')
     })
 
 };
