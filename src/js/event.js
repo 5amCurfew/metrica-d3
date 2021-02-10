@@ -20,10 +20,10 @@ export const create = (id) => {
             d.x = Math.round(+d.x*100);
             d.y = Math.round(+d.y*100);
         });
-        console.log(data);
+
         pitch
             .selectAll('.player')
-            .data(data.filter( (d) => d.marker == 'H' ))
+            .data(data)
             .enter()
             .append('circle')
             .attr('cx', (d) => {return x(100-d.y)})
@@ -32,7 +32,6 @@ export const create = (id) => {
             .attr('fill', (d) => d.marker == 'H' ? 'blue' : 'red' )
         
         var vertices = data
-            .filter((d) => d.marker == 'H')
             .map( (d) => { return [x( 100 - d.y), y( d.x )] });
     
         pitch
@@ -40,7 +39,7 @@ export const create = (id) => {
             .data( voronoi.polygons(vertices)  )
             .enter()
             .append("path")
-            .attr("stroke","blue")
+            .attr("stroke","grey")
             .attr('stroke-opacity', '0.3')
             .style("stroke-dasharray", ("8")) 
             .attr("fill", 'transparent')
@@ -49,5 +48,10 @@ export const create = (id) => {
         function polygon(d) { 
             return d ? "M" + d.join("L") + "Z": null; 
         };
+    })
+
+    d3.csv('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/event.csv', (data) => {
+        console.log(data)
+        
     })
 };
