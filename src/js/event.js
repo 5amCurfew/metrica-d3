@@ -15,14 +15,13 @@ export const create = (id) => {
 
     var voronoi = d3.voronoi().extent([[0, 0], [pitchFrame.width, pitchFrame.height]]);
 
-    d3.csv('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/event.csv', (data) => {
+    d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/track_example.json', (data) => {
         data.forEach((e) => {
-            e.x = Math.round(+e["Start X"]*100);
-            e.y = Math.round(+e["Start Y"]*100);
-            e.xEnd = Math.round(+e["End X"]*100);
-            e.yEnd = Math.round(+e["End Y"]*100);
+            e.x = Math.round(+e.y*100);
+            e.y = Math.round(+e.x*100);
+            e.xEnd = Math.round(+e.yEnd*100);
+            e.yEnd = Math.round(+e.xEnd*100);
         })
-        console.log(data.filter( (d) => d["Start Frame"] == 90005 ))
         
         const event = data.filter( (d) => d["Start Frame"] == 90005 );
         pitch
@@ -50,7 +49,6 @@ export const create = (id) => {
             d.x = Math.round(+d.x*100);
             d.y = Math.round(+d.y*100);
         });
-        console.log(data);
         pitch
             .selectAll('.player')
             .data(data)
