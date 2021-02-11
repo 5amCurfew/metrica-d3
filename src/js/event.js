@@ -15,30 +15,28 @@ export const create = (id) => {
 
     var voronoi = d3.voronoi().extent([[0, 0], [pitchFrame.width, pitchFrame.height]]);
 
-    d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/track_example.json', (data) => {
-        data.forEach((e) => {
-            e.x = Math.round(+e.y*100);
-            e.y = Math.round(+e.x*100);
-            e.xEnd = Math.round(+e.yEnd*100);
-            e.yEnd = Math.round(+e.xEnd*100);
-        })
-        
-        const event = data.filter( (d) => d["Start Frame"] == 90005 );
+    d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/event_example.json', (event) => {
+
+        event.x_scaled = Math.round(event.x*100);
+        event.y_scaled = Math.round(event.y*100);
+        event.xEnd_scaled = Math.round(event.xEnd*100);
+        event.yEnd_scaled = Math.round(event.yEnd*100);
+
+        console.log(event);
         pitch
             .data(event)
             .append('line')
-                .attr('x1', (e) => x(100 - e.y))
-                .attr('y1', (e) => y(e.x))
-                .attr('x2', (e) => x(100 - e.yEnd))
-                .attr('y2', (e) => y(e.xEnd))
+                .attr('x1', (e) => x(100 - e.y_scaled))
+                .attr('y1', (e) => y(e.x_scaled))
+                .attr('x2', (e) => x(100 - e.yEnd_scaled))
+                .attr('y2', (e) => y(e.xEnd_scaled))
                 .attr('stroke', '#000')
-                .attr("marker-end","url(#arrow)");
 
         pitch
             .data(event)
             .append('circle')
-            .attr('cx', (d) => {return x(100-d.yEnd)})
-            .attr('cy', (d) => {return y(d.xEnd)})
+            .attr('cx', (d) => {return x(100-d.yEnd_scaled)})
+            .attr('cy', (d) => {return y(d.xEnd_scaled)})
             .attr("r", 4)
             .attr('fill', 'white')
             .attr('stroke', 'black')
