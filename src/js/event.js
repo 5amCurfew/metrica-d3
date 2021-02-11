@@ -45,12 +45,12 @@ export const create = (id) => {
             .attr('stroke', 'black')
     })
     
-    d3.csv('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/goal.csv', (data) => {
+    d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/track_example.json', (data) => {
         data.forEach(function(d) {
             d.x = Math.round(+d.x*100);
             d.y = Math.round(+d.y*100);
         });
-
+        console.log(data);
         pitch
             .selectAll('.player')
             .data(data)
