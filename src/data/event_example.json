@@ -1,4 +1,4 @@
-{
+[{
     "team": "Home",
     "type": "SHOT",
     "sub_type": "ON TARGET-GOAL",
@@ -13,4 +13,4 @@
     "y": 0.31,
     "xEnd": 0,
     "yEnd": 0.54
-}
+}]

@@ -35,8 +35,8 @@ export const create = (id) => {
         pitch
             .data(event)
             .append('circle')
-            .attr('cx', (d) => {return x(100-d.yEnd_scaled)})
-            .attr('cy', (d) => {return y(d.xEnd_scaled)})
+            .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
+            .attr('cy', (e) => {return y(e.xEnd_scaled)})
             .attr("r", 4)
             .attr('fill', 'white')
             .attr('stroke', 'black')
@@ -61,7 +61,7 @@ export const create = (id) => {
             .map( (d) => { return [x( 100 - d.y), y( d.x )] });
     
         pitch
-            .selectAll(".player")
+            .selectAll(".voronoi_segment")
             .data( voronoi.polygons(vertices)  )
             .enter()
             .append("path")
