@@ -16,11 +16,12 @@ export const create = (id) => {
     var voronoi = d3.voronoi().extent([[0, 0], [pitchFrame.width, pitchFrame.height]]);
 
     d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/event_example.json', (event) => {
-
-        event.x_scaled = Math.round(event.x*100);
-        event.y_scaled = Math.round(event.y*100);
-        event.xEnd_scaled = Math.round(event.xEnd*100);
-        event.yEnd_scaled = Math.round(event.yEnd*100);
+        event.forEach( (e) => {
+            e.x_scaled = Math.round(e.x*100);
+            e.y_scaled = Math.round(e.y*100);
+            e.xEnd_scaled = Math.round(e.xEnd*100);
+            e.yEnd_scaled = Math.round(e.yEnd*100);
+        })
 
         console.log(event);
         pitch
