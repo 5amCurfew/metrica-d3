@@ -35,7 +35,7 @@ html {
   margin: 5px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 40vw 40vw;
+  grid-template-columns: 20vw 40vw;
   height: 90vh;
   border: 1px solid black;
 }
@@ -45,7 +45,7 @@ html {
   margin: 5px;
 }
 
-.pitchContainer {
+.eventContainer {
   border: 1px solid blue;
   margin: 5px;
 }

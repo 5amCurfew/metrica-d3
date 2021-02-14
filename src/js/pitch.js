@@ -1,36 +1,34 @@
-import { argv } from 'process';
-import * as pitchFrame from './pitchFrame';
-
+import * as pitchBoundaries from './pitchBoundaries';
 export const create = () => {
 
     var x = d3.scaleLinear()
         .domain([0, 100])
-        .range([0, pitchFrame.width]);
+        .range([0, pitchBoundaries.width]);
 
     var y = d3.scaleLinear()
         .domain([0, 100])
-        .range([pitchFrame.height, 0]);
+        .range([pitchBoundaries.height, 0]);
 
-    var svg = d3.select(`#pitch`)
+    var svg = d3.select(`.pitchContainer`)
         .append('svg')
-        .attr("viewBox", `0 0 ${pitchFrame.width + pitchFrame.margin.left + pitchFrame.margin.right} ${pitchFrame.height + pitchFrame.margin.top + pitchFrame.margin.bottom}`)
+        .attr("viewBox", `0 0 ${pitchBoundaries.width + pitchBoundaries.margin.left + pitchBoundaries.margin.right} ${pitchBoundaries.height + pitchBoundaries.margin.top + pitchBoundaries.margin.bottom}`)
         .append('g')
-        .attr('transform', 'translate(' + pitchFrame.margin.left + ',' + pitchFrame.margin.top + ')');
+        .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')');
 
     svg.append('clipPath')
         .attr('id', 'clip')
         .append('rect')
         .attr('class', 'mesh')
-        .attr('width', pitchFrame.width)
-        .attr('height', pitchFrame.height);
+        .attr('width', pitchBoundaries.width)
+        .attr('height', pitchBoundaries.height);
 
     // field outline    
     svg.append('rect')
         .attr('id','outline')
         .attr('x', 0)
         .attr('y', 0)
-        .attr('width', pitchFrame.width)
-        .attr('height', pitchFrame.height)
+        .attr('width', pitchBoundaries.width)
+        .attr('height', pitchBoundaries.height)
         .attr('fill', 'none')
         .attr('stroke', 'black'); 
 
@@ -79,7 +77,7 @@ export const create = () => {
 	//	.attr('id','penarea')
 	//	.attr('x', x(100))
 	//	.attr('y', y(54.8))
-	//	.attr('width', pitchFrame.margin.right - 1)
+	//	.attr('width', pitchBoundaries.margin.right - 1)
 	//	.attr('height', y(45.2) - y(54.8))
 	//	.attr('fill', 'none')
 	//	.attr('stroke', 'black');   
@@ -90,7 +88,7 @@ export const create = () => {
 		.attr('x', x(100-54.8))
 		.attr('y', y(0))
 		.attr('width', -(x(45.2) - x(54.8)))
-		.attr('height', pitchFrame.margin.bottom)
+		.attr('height', pitchBoundaries.margin.bottom)
 		.attr('fill', 'none')
         .attr('stroke', 'black');
         
@@ -137,9 +135,9 @@ export const create = () => {
     //// left goal
 	//svg.append('rect')
 	//	.attr('id','penarea')
-	//	.attr('x', x(0) - pitchFrame.margin.right + 1)
+	//	.attr('x', x(0) - pitchBoundaries.margin.right + 1)
 	//	.attr('y', y(54.8))
-	//	.attr('width', pitchFrame.margin.right - 1)
+	//	.attr('width', pitchBoundaries.margin.right - 1)
 	//	.attr('height', y(45.2) - y(54.8))
 	//	.attr('fill', 'none')
     //    .attr('stroke', 'black');
@@ -148,9 +146,9 @@ export const create = () => {
 	svg.append('rect')
 		.attr('id','penarea')
 		.attr('x', x(100-54.8))
-		.attr('y', y(100) - pitchFrame.margin.right)
+		.attr('y', y(100) - pitchBoundaries.margin.right)
 		.attr('width', -(x(45.2) - x(54.8)))
-		.attr('height', pitchFrame.margin.top)
+		.attr('height', pitchBoundaries.margin.top)
 		.attr('fill', 'none')
         .attr('stroke', 'black');
         
@@ -232,14 +230,14 @@ export const create = () => {
         .attr("d", arc2A)
         .attr("transform", "translate(285,675)");
 
-    // V Line split
-    svg.append('line')
-        .attr('x1', x(50))
-        .attr('x2', x(50))
-        .attr('y1', y(0))
-        .attr('y2', y(100))
-        .attr('stroke', 'grey')
-        .style("stroke-dasharray", ("5")); 
+    //// V Line split
+    //svg.append('line')
+    //    .attr('x1', x(50))
+    //    .attr('x2', x(50))
+    //    .attr('y1', y(0))
+    //    .attr('y2', y(100))
+    //    .attr('stroke', 'grey')
+    //    .style("stroke-dasharray", ("5")); 
 
     return svg;
 
