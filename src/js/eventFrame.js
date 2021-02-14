@@ -1,5 +1,5 @@
 import * as pitchBoundaries from './pitchBoundaries';
-import * as Pitch from './pitch';
+//import * as Pitch from './pitch';
 import * as axios from 'axios';
 
 export const create = async (id) => {
@@ -12,7 +12,7 @@ export const create = async (id) => {
         .domain([0, 100])
         .range([pitchBoundaries.height, 0]);
 
-    var pitch = Pitch.create();
+    var pitch = d3.select('svg');
 
     var voronoi = d3.voronoi().extent([[0, 0], [pitchBoundaries.width, pitchBoundaries.height]]);
 
@@ -28,6 +28,8 @@ export const create = async (id) => {
         })
 
         pitch
+            .append('g')
+            .attr('class', 'eventSegment')
             .data(event)
             .append('line')
                 .attr('x1', (e) => x(100 - e.y_scaled))
@@ -37,13 +39,15 @@ export const create = async (id) => {
                 .attr('stroke', '#000')
 
         pitch
+            .append('g')
+            .attr('class', 'eventMarker')
             .data(event)
             .append('circle')
-            .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
-            .attr('cy', (e) => {return y(e.xEnd_scaled)})
-            .attr("r", 4)
-            .attr('fill', 'white')
-            .attr('stroke', 'black')
+                .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
+                .attr('cy', (e) => {return y(e.xEnd_scaled)})
+                .attr("r", 4)
+                .attr('fill', 'white')
+                .attr('stroke', 'black')
     })
     
 
@@ -61,28 +65,33 @@ export const create = async (id) => {
     });
 
     pitch
-        .selectAll('.player')
-        .data(track)
-        .enter()
-        .append('circle')
-            .attr('cx', (d) => {return x(100-d.y)})
-            .attr('cy', (d) => {return y(d.x)})
-            .attr("r", 8)
-            .attr('fill', (d) => d.marker == 'H' ? 'blue' : 'red' )
+        .append('g')
+        .attr('class', 'markers')
+            .selectAll('.player')
+            .data(track)
+            .enter()
+            .append('circle')
+                .attr('cx', (d) => {return x(100-d.y)})
+                .attr('cy', (d) => {return y(d.x)})
+                .attr("r", 8)
+                .attr('fill', (d) => d.marker == 'H' ? 'blue' : 'red' )
     
     var vertices = track
         .map( (d) => { return [x( 100 - d.y), y( d.x )] });
 
     pitch
-        .selectAll(".voronoi_segment")
-        .data( voronoi.polygons(vertices)  )
-        .enter()
-        .append("path")
-            .attr("stroke","grey")
-            .attr('stroke-opacity', '0.3')
-            .style("stroke-dasharray", ("8")) 
-            .attr("fill", 'transparent')
-            .attr("d", polygon);
+        .append('g')
+        .attr('class', 'voronoi')
+            .selectAll(".voronoi_segment")
+            .data( voronoi.polygons(vertices)  )
+            .enter()
+            .append("path")
+                .attr("stroke","grey")
+                .attr('stroke-opacity', '0.3')
+                .style("stroke-dasharray", ("8")) 
+                .attr("fill", 'transparent')
+                .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
+                .attr("d", polygon);
     
     function polygon(d) { 
         return d ? "M" + d.join("L") + "Z": null; 

@@ -1,18 +1,20 @@
 import * as event from './js/eventFrame';
+import * as Pitch from './js/pitch';
 
 let state = {"updatedAt": new Date};
 window.state = state;
 
 const clear = (div) => {
-    document.querySelector(`${div}`).innerHTML = '';
+    div.forEach( (divClass) => {
+        document.querySelectorAll(`${divClass}`) ? document.querySelectorAll(`${divClass}`).forEach(e => e.remove()) : console.log('---')
+    }) 
 };
-
 
 ///////////////////////////////////////////////
 // FRAME Controller
 ///////////////////////////////////////////////
 const frameController = async () => {
-    clear('.pitchContainer');
+    clear( ['.eventMarker', '.eventSegment', '.marker', '.voronoi'] );
     event.create('100798');
 }
 
@@ -20,7 +22,7 @@ const frameController = async () => {
 // EVENT LISTENERS
 ///////////////////////////////////////////////
 window.addEventListener('load', async () => {
-    await frameController();
+    Pitch.create('.pitchContainer');
 });
 
 window.addEventListener('hashchange', async () => {

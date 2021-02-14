@@ -1,5 +1,5 @@
 import * as pitchBoundaries from './pitchBoundaries';
-export const create = () => {
+export const create = (location) => {
 
     var x = d3.scaleLinear()
         .domain([0, 100])
@@ -9,13 +9,15 @@ export const create = () => {
         .domain([0, 100])
         .range([pitchBoundaries.height, 0]);
 
-    var svg = d3.select(`.pitchContainer`)
+    var svg = d3.select(location)
         .append('svg')
         .attr("viewBox", `0 0 ${pitchBoundaries.width + pitchBoundaries.margin.left + pitchBoundaries.margin.right} ${pitchBoundaries.height + pitchBoundaries.margin.top + pitchBoundaries.margin.bottom}`)
         .append('g')
+        .attr('class', 'pitch')
         .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')');
 
-    svg.append('clipPath')
+    svg
+        .append('clipPath')
         .attr('id', 'clip')
         .append('rect')
         .attr('class', 'mesh')
@@ -23,7 +25,8 @@ export const create = () => {
         .attr('height', pitchBoundaries.height);
 
     // field outline    
-    svg.append('rect')
+    svg
+        .append('rect')
         .attr('id','outline')
         .attr('x', 0)
         .attr('y', 0)
@@ -43,7 +46,8 @@ export const create = () => {
     //    .attr('stroke', 'black');
 
     // bottom penalty area
-    svg.append('rect')
+    svg
+        .append('rect')
         .attr('id','six')
         .attr('x', x(21.1))
         .attr('y', y(100-83))
@@ -63,7 +67,8 @@ export const create = () => {
     //    .attr('stroke', 'black');
     
     // bottom six yard box
-    svg.append('rect')
+    svg
+        .append('rect')
         .attr('id','penarea')
         .attr('x', x(36.8))
         .attr('y', y(100-94.2))
@@ -83,7 +88,8 @@ export const create = () => {
 	//	.attr('stroke', 'black');   
     
     // bottom goal
-	svg.append('rect')
+	svg
+        .append('rect')
 		.attr('id','penarea')
 		.attr('x', x(100-54.8))
 		.attr('y', y(0))
@@ -103,7 +109,8 @@ export const create = () => {
     //   .attr('stroke', 'black');
     
     // top penalty area 
-    svg.append('rect')
+    svg
+        .append('rect')
         .attr('id','six')
         .attr('x', x(100-78.9))
         .attr('y', y(100))
@@ -123,7 +130,8 @@ export const create = () => {
     //    .attr('stroke', 'black');
 
     // top six yard box
-	svg.append('rect')
+	svg
+        .append('rect')
 		.attr('id','penarea')
 		.attr('x', x(100-63.2))
 		.attr('y', y(100))
@@ -143,7 +151,8 @@ export const create = () => {
     //    .attr('stroke', 'black');
     
     // top goal
-	svg.append('rect')
+	svg
+        .append('rect')
 		.attr('id','penarea')
 		.attr('x', x(100-54.8))
 		.attr('y', y(100) - pitchBoundaries.margin.right)
@@ -162,7 +171,8 @@ export const create = () => {
     //    .attr('stroke', 'black'); 
 
     // 50 yd line (V)
-	 svg.append('line')
+	 svg
+        .append('line')
         .attr('id','half')
         .attr('x1', x(0))
         .attr('x2', x(100))
@@ -171,30 +181,34 @@ export const create = () => {
         .attr('stroke', 'black'); 
         
     // center circle
-	svg.append('circle')
-	   .attr('cx', x(50))
-	   .attr('cy', y(50))
-	   .attr('r', x(10))
-	   .attr('fill', 'none')
-       .attr('stroke', 'black');
+	svg
+        .append('circle')
+	    .attr('cx', x(50))
+	    .attr('cy', y(50))
+	    .attr('r', x(10))
+	    .attr('fill', 'none')
+        .attr('stroke', 'black');
 
     // center point
-	svg.append('circle')
-	   .attr('cx', x(50))
-	   .attr('cy', y(50))
-	   .attr('r', x(.5))
-	   .attr('fill', 'black')
-       .attr('stroke', 'black');
+	svg
+        .append('circle')
+	    .attr('cx', x(50))
+	    .attr('cy', y(50))
+	    .attr('r', x(.5))
+	    .attr('fill', 'black')
+        .attr('stroke', 'black');
 
     // penalty spot top
-	svg.append('circle')
+	svg
+        .append('circle')
         .attr('cx', x(50))
         .attr('cy', y(12))
         .attr('r', x(.5))
         .attr('fill', 'black')
         .attr('stroke', 'black');
     // penalty spot top
-	svg.append('circle')
+	svg
+        .append('circle')
         .attr('cx', x(50))
         .attr('cy', y(88))
         .attr('r', x(.5))
