@@ -1,8 +1,7 @@
 import * as pitchBoundaries from './pitchBoundaries';
-//import * as Pitch from './pitch';
 import * as axios from 'axios';
 
-export const create = async (id) => {
+export const create = async (event) => {
 
     var x = d3.scaleLinear()
         .domain([0, 100])
@@ -19,36 +18,36 @@ export const create = async (id) => {
     /////////////////////////////
     // EVENT
     /////////////////////////////
-    d3.json('https://raw.githubusercontent.com/5amCurfew/metrica-d3/main/src/data/event_example.json', (event) => {
-        event.forEach( (e) => {
-            e.x_scaled = Math.round(e.x*100);
-            e.y_scaled = Math.round(e.y*100);
-            e.xEnd_scaled = Math.round(e.xEnd*100);
-            e.yEnd_scaled = Math.round(e.yEnd*100);
-        })
-
-        pitch
-            .append('g')
-            .attr('class', 'eventSegment')
-            .data(event)
-            .append('line')
-                .attr('x1', (e) => x(100 - e.y_scaled))
-                .attr('y1', (e) => y(e.x_scaled))
-                .attr('x2', (e) => x(100 - e.yEnd_scaled))
-                .attr('y2', (e) => y(e.xEnd_scaled))
-                .attr('stroke', '#000')
-
-        pitch
-            .append('g')
-            .attr('class', 'eventMarker')
-            .data(event)
-            .append('circle')
-                .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
-                .attr('cy', (e) => {return y(e.xEnd_scaled)})
-                .attr("r", 4)
-                .attr('fill', 'white')
-                .attr('stroke', 'black')
+    event.forEach( (e) => {
+        e.x_scaled = Math.round(e.x*100);
+        e.y_scaled = Math.round(e.y*100);
+        e.xEnd_scaled = Math.round(e.xEnd*100);
+        e.yEnd_scaled = Math.round(e.yEnd*100);
     })
+
+    pitch
+        .append('g')
+        .attr('class', 'eventSegment')
+        .data(event)
+        .append('line')
+            .attr('x1', (e) => x(100 - e.y_scaled))
+            .attr('y1', (e) => y(e.x_scaled))
+            .attr('x2', (e) => x(100 - e.yEnd_scaled))
+            .attr('y2', (e) => y(e.xEnd_scaled))
+            .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
+            .attr('stroke', '#000')
+
+    pitch
+        .append('g')
+        .attr('class', 'eventMarker')
+        .data(event)
+        .append('circle')
+            .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
+            .attr('cy', (e) => {return y(e.xEnd_scaled)})
+            .attr("r", 4)
+            .attr('fill', 'white')
+            .attr('stroke', 'black')
+            .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
     
 
     /////////////////////////////
@@ -56,7 +55,7 @@ export const create = async (id) => {
     /////////////////////////////
     const config = {
         method: 'get',
-        url: `http://localhost:4040/track/${id}`
+        url: `http://localhost:4040/track/${event[0].start_frame}`
     };
     const track = (await axios(config)).data;
     track.forEach(function(d) {
@@ -75,6 +74,7 @@ export const create = async (id) => {
                 .attr('cy', (d) => {return y(d.x)})
                 .attr("r", 8)
                 .attr('fill', (d) => d.marker == 'H' ? 'blue' : 'red' )
+                .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
     
     var vertices = track
         .map( (d) => { return [x( 100 - d.y), y( d.x )] });

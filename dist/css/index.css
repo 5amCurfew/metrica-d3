@@ -36,11 +36,10 @@ html {
   display: grid;
   justify-content: center;
   grid-template-columns: 20vw 40vw;
-  height: 90vh;
   border: 1px solid black;
 }
 
-.menu {
+.menuContainer {
   border: 1px solid red;
   margin: 5px;
 }
