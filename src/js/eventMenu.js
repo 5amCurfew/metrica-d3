@@ -1,24 +1,31 @@
+const formatTime = (seconds) => {
+  const time = new Date(seconds * 1000).toISOString().substr(11, 8)
+  const m = parseFloat(time.split(':')[0]*60) + parseFloat(time.split(':')[1])
+  const s = parseFloat(time.split(':')[2]) < 10 ? time.split(':')[2] : parseFloat(time.split(':')[2])
+  return [m, s].join(':')
+}
+
 export const create = async (events) => {
 
     events.forEach((e, index) => {
-
+      let emoji;
       if (e.type == 'PASS') {
-        // set pass
+        emoji = '&#x2934;'
       } else if (e.type == 'SHOT') {
-        // set shot
+        emoji = '&#x26bd'
       }
 
       const markup = `
-          <li class="results__obj" style="--d:${0.2 * index}s">
-            <a class="results__link results__link--active" href="#${e.start_frame}">
-                <div class="results__data fade_in">
-                    <h4 class="results__name">${e.type.replace(/->/g, '&rarr;')}</h4>
-                    <p class="results__km">${e.sub_type}km</p>
-                    <p class="results__km">${e.team}</p>
-                </div>  
-            </a>
-          </li>`;
-  
+      <a  href="#${e.start_frame}">
+          <div class="eventCard">
+            <div class="eventTime">&#128338; ${formatTime(e.start_time)}</div>
+            <div class="eventInfo fade_in">
+                    <p class="eventSymbol">${emoji}</p>
+                    <p class="eventType">${e.type}</p>
+                    <p class="eventTeam">${e.team}</p>
+            </div>
+          </div>
+        </a>`;
       document.querySelector('.menuContainer').insertAdjacentHTML('beforeend', markup);
     });
   };

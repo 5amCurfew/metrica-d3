@@ -72,8 +72,9 @@ export const create = async (event) => {
             .append('circle')
                 .attr('cx', (d) => {return x(100-d.y)})
                 .attr('cy', (d) => {return y(d.x)})
-                .attr("r", 8)
-                .attr('fill', (d) => d.marker == 'H' ? 'blue' : 'red' )
+                .attr("r", 7)
+                .attr('fill', (d) => d.marker == 'H' ? 'blue' : d.marker == 'A' ? 'red' : 'transparent' )
+                .attr('fill-opacity', '0.5')
                 .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
     
     var vertices = track

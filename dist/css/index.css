@@ -6,7 +6,6 @@ html {
   align-items: center;
   justify-content: center;
   background-color: #f9f9f9;
-  overflow-x: hidden;
 }
 @keyframes spin {
   from {
@@ -35,13 +34,16 @@ html {
   margin: 5px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 20vw 40vw;
+  grid-template-columns: 35vw 40vw;
   border: 1px solid black;
 }
 
 .menuContainer {
+  display: block;
   border: 1px solid red;
   margin: 5px;
+  max-height: 90vh;
+  overflow-x: scroll;
 }
 
 .eventContainer {
