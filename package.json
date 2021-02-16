@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -21,6 +22,7 @@
   },
   "author": "5AMU3L",
   "license": "ISC",
+  "homepage": "https://5amcurfew.github.io/metrica-d3",
   "dependencies": {
     "axios": "^0.21.1",
     "dayjs": "^1.10.3",
