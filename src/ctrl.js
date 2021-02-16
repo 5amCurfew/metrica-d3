@@ -31,7 +31,7 @@ window.addEventListener('load', async () => {
         method: 'get',
         url: `http://localhost:4040/events/`
     };
-    state.events = (await axios(config)).data;
+    state.events = (await axios(config)).data.filter((e) => e.type != 'SET PIECE');
     eventMenu.create(state.events);
 });
 

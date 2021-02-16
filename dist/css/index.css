@@ -40,13 +40,12 @@ html {
 
 .menuContainer {
   display: block;
-  border: 1px solid red;
+  border: 1px solid grey;
   margin: 5px;
   max-height: 90vh;
   overflow-x: scroll;
 }
 
 .eventContainer {
-  border: 1px solid blue;
   margin: 5px;
 }

@@ -8,7 +8,6 @@ a {
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr;
   gap: 5px 5px;
-  border: 1px solid red;
   margin: 5px;
 }
 .eventInfo {
@@ -20,14 +19,18 @@ a {
     "."
     "."
     ".";
-  border: 1px solid purple;
+  border: 1px solid grey;
+  padding: 5px;
+  margin-left: 0;
 }
 
 .eventTime {
   padding: 20%;
+  font-size: 14px;
+  border: 1px solid grey;
 }
 
 p {
-  border: 1px solid green;
   margin: 0;
+  font-size: 14px;
 }

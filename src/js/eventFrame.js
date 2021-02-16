@@ -3,6 +3,8 @@ import * as axios from 'axios';
 
 export const create = async (event) => {
 
+    console.log(event);
+
     var x = d3.scaleLinear()
         .domain([0, 100])
         .range([0, pitchBoundaries.width]);
@@ -32,19 +34,19 @@ export const create = async (event) => {
         .append('line')
             .attr('x1', (e) => x(100 - e.y_scaled))
             .attr('y1', (e) => y(e.x_scaled))
-            .attr('x2', (e) => x(100 - e.yEnd_scaled))
-            .attr('y2', (e) => y(e.xEnd_scaled))
+            .attr('x2', (e) => e.type == 'PASS' || e.type == 'SHOT' ? x(100 - e.yEnd_scaled) : 0)
+            .attr('y2', (e) => e.type == 'PASS' || e.type == 'SHOT' ? y(e.xEnd_scaled) : 0)
             .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
-            .attr('stroke', '#000')
-
+            .attr('stroke', (e) => e.type == 'PASS' || e.type == 'SHOT' ? '#000' : 'transparent')
+    
     pitch
         .append('g')
         .attr('class', 'eventMarker')
         .data(event)
         .append('circle')
-            .attr('cx', (e) => {return x(100-e.yEnd_scaled)})
-            .attr('cy', (e) => {return y(e.xEnd_scaled)})
-            .attr("r", 4)
+            .attr('cx', (e) => e.type == 'PASS' || e.type == 'SHOT' ? x(100-e.yEnd_scaled) : x(100-e.y_scaled))
+            .attr('cy', (e) => e.type == 'PASS' || e.type == 'SHOT' ? y(e.xEnd_scaled) : y(e.x_scaled))
+            .attr("r", (e) => e.type == 'PASS' || e.type == 'SHOT' ? 4 : 12)
             .attr('fill', 'white')
             .attr('stroke', 'black')
             .attr('transform', 'translate(' + pitchBoundaries.margin.left + ',' + pitchBoundaries.margin.top + ')')
