@@ -57,7 +57,7 @@ export const create = async (event) => {
     /////////////////////////////
     const config = {
         method: 'get',
-        url: `http://localhost:4040/track/${event[0].start_frame}`
+        url: `https://metrica-d3-api.herokuapp.com/track/${event[0].start_frame}`
     };
     const track = (await axios(config)).data;
     track.forEach(function(d) {

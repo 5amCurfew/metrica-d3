@@ -29,7 +29,7 @@ window.addEventListener('load', async () => {
     Pitch.create('.pitchContainer');
     const config = {
         method: 'get',
-        url: `http://localhost:4040/events/`
+        url: `https://metrica-d3-api.herokuapp.com/events/`
     };
     state.events = (await axios(config)).data.filter((e) => e.type != 'SET PIECE');
     eventMenu.create(state.events);
