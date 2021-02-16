@@ -1,0 +1,36 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.eventCard {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 5px 5px;
+  margin: 5px;
+}
+.eventInfo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas:
+    "."
+    "."
+    ".";
+  border: 1px solid grey;
+  padding: 5px;
+  margin-left: 0;
+}
+
+.eventTime {
+  padding: 20%;
+  font-size: 14px;
+  border: 1px solid grey;
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+}
